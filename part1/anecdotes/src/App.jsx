@@ -1,13 +1,21 @@
 import { useState } from "react";
 
-const Display = (props) => {
-  return (
-    props.largest > 0 && (
-      <>
-        <h2>Anectode with most votes</h2>
-        <p>{props.largest}</p>
-      </>
-    )
+const Display = ({ largest, points, anecdotes }) => {
+  let voted;
+  for (let i = 0; i < points.length; i++) {
+    if (points[i] === largest) {
+      voted = i;
+    }
+  }
+  return largest > 0 ? (
+    <>
+      <p>{anecdotes[voted]}</p>
+      <p>has {points[voted]} votes</p>
+    </>
+  ) : (
+    <>
+      <p>none was voted yet</p>
+    </>
   );
 };
 
@@ -33,12 +41,11 @@ const App = () => {
 
   const vote = () => {
     const newPoints = [...points];
-    (newPoints[selected] += 1), setPoints(newPoints), console.log(newPoints);
+    return (newPoints[selected] += 1), setPoints(newPoints);
   };
 
-  const largest = () => {
-    return Math.max(...points);
-  };
+  const largest = Math.max(...points);
+
   return (
     <div>
       <h2>Anecdote of the day</h2>
@@ -46,7 +53,8 @@ const App = () => {
       <p>has {points[selected]} votes</p>
       <button onClick={vote}>vote</button>
       <button onClick={nextAnecdote}>next anecdote</button>
-      <Display largest={largest()} />
+      <h2>Anectode with most votes</h2>
+      <Display largest={largest} points={points} anecdotes={anecdotes} />
     </div>
   );
 };
