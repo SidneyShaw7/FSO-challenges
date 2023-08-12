@@ -8,6 +8,7 @@ const Form = ({
   people,
   setPeople,
 }) => {
+  
   const addName = (e) => {
     e.preventDefault();
     const nameObject = {
