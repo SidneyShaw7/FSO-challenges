@@ -1,3 +1,5 @@
+import numberServise from "../services/Numbers";
+
 const Form = ({
   newName,
   newNumber,
@@ -8,16 +10,23 @@ const Form = ({
   people,
   setPeople,
 }) => {
-  
   const addName = (e) => {
     e.preventDefault();
     const nameObject = {
       name: newName,
-      id: newName,
       number: newNumber,
     };
 
+    numberServise // force break
+      .create(nameObject)
+      .then((returnedPerson) => {
+        setPeople(people.concat(returnedPerson));
+        setNewName("");
+        setNewNumber("");
+      });
+
     const personExist = people.some((person) => person.id === nameObject.id);
+
     personExist
       ? alert(`${nameObject.name} is already added to phonebook`)
       : setPeople(people.concat(nameObject));

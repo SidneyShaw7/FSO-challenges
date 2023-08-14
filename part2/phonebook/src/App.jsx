@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Form from "./components/Form";
 import Filter from "./components/Filter";
 import axios from "axios";
+import numberService from "./services/Numbers";
 
 function App() {
   const [people, setPeople] = useState([]);
@@ -10,9 +11,13 @@ function App() {
   const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((response) => {
-      setPeople(response.data);
-    });
+    numberService // force break
+      .getAll()
+      .then((initialPeople) => {
+        setPeople(initialPeople);
+        console.log(typeof initialPeople);
+        console.log(initialPeople);
+      });
   }, []);
 
   return (
@@ -32,6 +37,7 @@ function App() {
       <h3>Numbers</h3>
       <Filter
         people={people}
+        setPeople={setPeople}
         searchInput={searchInput}
         setSearchInput={(e) => setSearchInput(e.target.value)}
       />
