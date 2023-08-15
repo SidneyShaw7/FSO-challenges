@@ -15,7 +15,15 @@ const Form = ({
     const nameObject = {
       name: newName,
       number: newNumber,
+      id: newNumber,
     };
+
+    const personExist = people.some((person) => person.id === nameObject.id);
+    personExist
+      ? alert(`${nameObject.name} is already added to phonebook`)
+      : setPeople(people.concat(nameObject));
+    setNewNumber("");
+    setNewName("");
 
     numberServise // force break
       .create(nameObject)
@@ -24,14 +32,6 @@ const Form = ({
         setNewName("");
         setNewNumber("");
       });
-
-    const personExist = people.some((person) => person.id === nameObject.id);
-
-    personExist
-      ? alert(`${nameObject.name} is already added to phonebook`)
-      : setPeople(people.concat(nameObject));
-    setNewNumber("");
-    setNewName("");
   };
   return (
     <form onSubmit={addName}>

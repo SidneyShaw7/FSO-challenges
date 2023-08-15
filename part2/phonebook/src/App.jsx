@@ -11,13 +11,11 @@ function App() {
   const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
-    numberService // force break
-      .getAll()
-      .then((initialPeople) => {
-        setPeople(initialPeople);
-        console.log(typeof initialPeople);
-        console.log(initialPeople);
-      });
+    numberService.getAll().then((initialPeople) => {
+      setPeople(initialPeople);
+      // console.log(typeof initialPeople);
+      // console.log(initialPeople);
+    });
   }, []);
 
   return (
