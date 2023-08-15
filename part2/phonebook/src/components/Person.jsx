@@ -6,9 +6,11 @@ const Person = ({ setPeople, person }) => {
       numberService
         .deletePerson(id)
         .then(() => {
-          numberService.getAll().then((updatedPeople) => {
-            setPeople(updatedPeople);
-          });
+          numberService // force break
+            .getAll()
+            .then((updatedPeople) => {
+              setPeople(updatedPeople);
+            });
         })
         .catch((error) => {
           alert(error);

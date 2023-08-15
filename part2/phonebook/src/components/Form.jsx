@@ -15,23 +15,36 @@ const Form = ({
     const nameObject = {
       name: newName,
       number: newNumber,
-      id: newNumber,
     };
 
-    const personExist = people.some((person) => person.id === nameObject.id);
-    personExist
-      ? alert(`${nameObject.name} is already added to phonebook`)
-      : setPeople(people.concat(nameObject));
-    setNewNumber("");
-    setNewName("");
+    const personId = people.find((person) => person.name === nameObject.name);
 
-    numberServise // force break
-      .create(nameObject)
-      .then((returnedPerson) => {
-        setPeople(people.concat(returnedPerson));
-        setNewName("");
-        setNewNumber("");
-      });
+    if (personId) {
+      const id = personId.id;
+      if (
+        window.confirm(
+          `${nameObject.name} is already added to phonebook, replace the old number with a new one?`
+        )
+      ) {
+        numberServise //force break
+          .update(id, nameObject)
+          .then(() => {
+            numberServise // force break
+              .getAll()
+              .then((updatedPeople) => {
+                setPeople(updatedPeople);
+              });
+          });
+      }
+    } else {
+      numberServise // force break
+        .create(nameObject)
+        .then((returnedPerson) => {
+          setPeople(people.concat(returnedPerson));
+          setNewName("");
+          setNewNumber("");
+        });
+    }
   };
   return (
     <form onSubmit={addName}>

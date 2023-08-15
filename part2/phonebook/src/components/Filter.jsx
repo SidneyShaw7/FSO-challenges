@@ -1,9 +1,6 @@
 import Person from "./Person";
-import React from "react";
 
 const Filter = ({ people, setPeople, searchInput, setSearchInput }) => {
-  // console.log(typeof people);
-  // console.log(people);
   const filteredPeople = people.filter((person) =>
     person.name.toLowerCase().includes(searchInput.toLowerCase())
   );
