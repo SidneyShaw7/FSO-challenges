@@ -1,6 +1,6 @@
 import numberService from "../services/Numbers";
 
-const Person = ({ setPeople, person }) => {
+const Person = ({ setPeople, person, setNotification, setStyle }) => {
   const handleDelete = (id) => {
     if (window.confirm(`Delete ${person.name}?`)) {
       numberService
@@ -10,10 +10,21 @@ const Person = ({ setPeople, person }) => {
             .getAll()
             .then((updatedPeople) => {
               setPeople(updatedPeople);
+              setStyle(true);
+              setNotification(`${person.name} deleted`);
+              setTimeout(() => {
+                setNotification(null);
+              }, 2000);
             });
         })
         .catch((error) => {
-          alert(error);
+          setStyle(false);
+          setNotification(
+            `Information of ${person.name} has already been removed from the server`
+          );
+          setTimeout(() => {
+            setNotification(null);
+          }, 2000);
           console.log(error);
         });
     }

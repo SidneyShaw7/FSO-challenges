@@ -9,6 +9,8 @@ const Form = ({
   setNewNumber,
   people,
   setPeople,
+  setNotification,
+  setStyle,
 }) => {
   const addName = (e) => {
     e.preventDefault();
@@ -18,7 +20,6 @@ const Form = ({
     };
 
     const personId = people.find((person) => person.name === nameObject.name);
-
     if (personId) {
       const id = personId.id;
       if (
@@ -34,6 +35,13 @@ const Form = ({
               .then((updatedPeople) => {
                 setPeople(updatedPeople);
               });
+          })
+          .catch((error) => {
+            setStyle(false);
+            setNotification(`${nameObject.name} not found in the server`);
+            setTimeout(() => {
+              setNotification(null);
+            }, 2000);
           });
       }
     } else {
@@ -43,6 +51,18 @@ const Form = ({
           setPeople(people.concat(returnedPerson));
           setNewName("");
           setNewNumber("");
+          setStyle(true);
+          setNotification(`Added ${nameObject.name}`);
+          setTimeout(() => {
+            setNotification(null);
+          }, 2000);
+        })
+        .catch((error) => {
+          setStyle(false);
+          setNotification("error occurred");
+          setTimeout(() => {
+            setNotification(null);
+          }, 2000);
         });
     }
   };

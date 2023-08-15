@@ -1,6 +1,13 @@
 import Person from "./Person";
 
-const Filter = ({ people, setPeople, searchInput, setSearchInput }) => {
+const Filter = ({
+  people,
+  setPeople,
+  searchInput,
+  setSearchInput,
+  setStyle,
+  setNotification,
+}) => {
   const filteredPeople = people.filter((person) =>
     person.name.toLowerCase().includes(searchInput.toLowerCase())
   );
@@ -10,6 +17,8 @@ const Filter = ({ people, setPeople, searchInput, setSearchInput }) => {
       {filteredPeople.map((person) => (
         <li key={person.id}>
           <Person
+            setNotification={setNotification}
+            setStyle={setStyle}
             key={person.id}
             setPeople={setPeople}
             people={people}
