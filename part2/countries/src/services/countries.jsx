@@ -1,0 +1,18 @@
+import axios from "axios";
+const baseUrl = "https://studies.cs.helsinki.fi/restcountries/api/all";
+
+const getAll = () => {
+  const request = axios.get(baseUrl);
+  return request.then((response) => {
+    return response.data;
+  });
+};
+
+const getParticular = (name) => {
+  const request = axios.get(`${baseUrl}/name/${name}`);
+  return request.then((response) => {
+    return request.data;
+  });
+};
+
+export default { getAll, getParticular };
