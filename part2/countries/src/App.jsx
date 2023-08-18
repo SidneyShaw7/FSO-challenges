@@ -4,9 +4,8 @@ import countryService from "./services/countries";
 
 function App() {
   const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState("");
+  const [showCountry, setShowCountry] = useState("");
   const [searchInput, setSearchInput] = useState("");
-  const [query, setQuery] = useState([]);
 
   useEffect(() => {
     countryService
@@ -30,13 +29,10 @@ function App() {
         }}
       ></input>
       <Finder
-        query={query}
-        setQuery={setQuery}
         countries={countries}
-        setCountries={setCountries}
         searchInput={searchInput}
+        setSearchInput={setSearchInput}
       />
-      {console.log(searchInput)}
     </div>
   );
 }

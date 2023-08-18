@@ -1,22 +1,34 @@
-const Country = ({ country, query }) => {
-  if ((query.length = 1)) {
+import countryService from "../services/countries";
+
+const Country = ({ country, filterCountry, setSearchInput }) => {
+  const languages = country.languages;
+
+  if (filterCountry.length === 1) {
     return (
       <div>
-        <h3>{country.name.common}</h3>
-        <h4>langueges:</h4>
+        <h2>{country.name.common}</h2>
+        <p>capital: {country.capital}</p>
+        <p>area: {country.area}</p>
+        <h4>languages:</h4>
         <ul>
-          <li>{country.langueges}</li>
+          {Object.entries(languages).map(([propertyName, propertyValue]) => (
+            <li key={propertyName}>{propertyValue}</li>
+          ))}
         </ul>
+        <p style={{ fontSize: 100, margin: 0 }}>{country.flag}</p>
       </div>
     );
-  } else if (query.length <= 10) {
+  } else if (filterCountry.length <= 10) {
     return (
-      <div>
-        <h3>{country.name.common}</h3>
-      </div>
+      <>
+        <h4>
+          {country.name.common}{" "}
+          <button onClick={() => setSearchInput(country.name.common)}>
+            show
+          </button>
+        </h4>
+      </>
     );
-  } else {
-    return <div>Too many matches, sspecify another filter</div>;
   }
 };
 
