@@ -1,6 +1,11 @@
-import countryService from "../services/countries";
-
-const Country = ({ country, filterCountry, setSearchInput }) => {
+import Weather from "./Weather";
+const Country = ({
+  country,
+  filterCountry,
+  setSearchInput,
+  weather,
+  setWeather,
+}) => {
   const languages = country.languages;
 
   if (filterCountry.length === 1) {
@@ -16,6 +21,7 @@ const Country = ({ country, filterCountry, setSearchInput }) => {
           ))}
         </ul>
         <p style={{ fontSize: 100, margin: 0 }}>{country.flag}</p>
+        <Weather country={country} weather={weather} setWeather={setWeather} />
       </div>
     );
   } else if (filterCountry.length <= 10) {

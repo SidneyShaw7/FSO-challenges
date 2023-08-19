@@ -4,8 +4,8 @@ import countryService from "./services/countries";
 
 function App() {
   const [countries, setCountries] = useState([]);
-  const [showCountry, setShowCountry] = useState("");
   const [searchInput, setSearchInput] = useState("");
+  const [weather, setWeather] = useState({});
 
   useEffect(() => {
     countryService
@@ -15,9 +15,10 @@ function App() {
         console.log(initialCountries);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("error fetching all countries", error);
       });
   }, []);
+
   return (
     <div>
       <h2>Welcome to the Countries Little Library!</h2>
@@ -32,6 +33,8 @@ function App() {
         countries={countries}
         searchInput={searchInput}
         setSearchInput={setSearchInput}
+        weather={weather}
+        setWeather={setWeather}
       />
     </div>
   );

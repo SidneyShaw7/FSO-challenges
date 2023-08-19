@@ -1,7 +1,12 @@
-import countryService from "../services/countries";
 import Country from "./Country";
 
-const Finder = ({ countries, searchInput, setSearchInput }) => {
+const Finder = ({
+  countries,
+  searchInput,
+  setSearchInput,
+  weather,
+  setWeather,
+}) => {
   const filterCountry = countries.filter((country) =>
     country.name.common.toLowerCase().includes(searchInput.toLowerCase())
   );
@@ -22,6 +27,8 @@ const Finder = ({ countries, searchInput, setSearchInput }) => {
             filterCountry={filterCountry}
             searchInput={searchInput}
             setSearchInput={setSearchInput}
+            weather={weather}
+            setWeather={setWeather}
           />
         ))}
       </div>
